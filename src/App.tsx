@@ -9,7 +9,6 @@ import {
   DivTwo,
   Input,
   Pagination,
-  PaginationContainer,
   Separator,
   SongTitle,
   Title,
@@ -18,30 +17,8 @@ import { Item } from "./interfaces";
 import { usePagination } from "./hooks/usePagination";
 
 const App = () => {
-  const [limit, handleGet, value, pague, setValue, setPague, res] =
+  const [handleGet, value, pague, setValue, setPague, res, pagues] =
     usePagination();
-
-  let pagues = [];
-  if (res?.tracks?.total)
-    for (
-      let index = 0;
-      index <
-      (Math.ceil(res?.tracks?.total / limit) > 7
-        ? 7
-        : Math.ceil(res?.tracks?.total / limit));
-      index++
-    ) {
-      pagues.push(
-        <PaginationContainer
-          style={{
-            color: pague === index ? "#AAA" : "#000",
-          }}
-          onClick={() => setPague(index)}
-        >
-          {index + 1}
-        </PaginationContainer>
-      );
-    }
 
   return (
     <Container>
@@ -78,13 +55,19 @@ const App = () => {
         )}
 
         <Pagination>
-          <DivPagination
-            onClick={pague > 1 ? () => setPague(pague - 1) : () => {}}
-          >
-            Anterior
-          </DivPagination>
+          {pague > 0 && (
+            <DivPagination
+              onClick={pague > 0 ? () => setPague(pague - 1) : () => {}}
+            >
+              Anterior
+            </DivPagination>
+          )}
           <DivPagination>{pagues}</DivPagination>
-          <DivPagination onClick={() => setPague(pague + 1)}>
+          <DivPagination
+            onClick={() => {
+              setPague(pague + 1), handleGet();
+            }}
+          >
             Siguiente
           </DivPagination>
         </Pagination>
