@@ -1,5 +1,5 @@
 import clientAxios from "../../config/clientAxios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ResponseSpotify } from "src/interfaces";
 
 export const usePagination = () => {
@@ -7,10 +7,6 @@ export const usePagination = () => {
   const [value, setValue] = useState<string>("");
   const [pague, setPague] = useState<number>(0);
   const [res, setRes] = useState<ResponseSpotify | any>(false);
-
-  useEffect(() => {
-    handleGet();
-  }, [pague]);
 
   const handleGet = async () => {
     try {

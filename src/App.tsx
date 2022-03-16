@@ -59,21 +59,23 @@ const App = () => {
             onChange={(e) => setValue(e.target.value)}
           />
         </DivTwo>
-        <Body>
-          {res &&
-            res.tracks.items.map((item: Item, index: number) => {
-              return (
-                <Content key={index}>
-                  <SongTitle>Canción: {item?.name}</SongTitle>
-                  <Separator>
-                    {item?.album.artists.map((artist) => {
-                      return <SongTitle>Artista: {artist.name}</SongTitle>;
-                    })}
-                  </Separator>
-                </Content>
-              );
-            })}
-        </Body>
+        {res && (
+          <Body>
+            {res &&
+              res.tracks.items.map((item: Item, index: number) => {
+                return (
+                  <Content key={index}>
+                    <SongTitle>Canción: {item?.name}</SongTitle>
+                    <Separator>
+                      {item?.album.artists.map((artist) => {
+                        return <SongTitle>Artista: {artist.name}</SongTitle>;
+                      })}
+                    </Separator>
+                  </Content>
+                );
+              })}
+          </Body>
+        )}
 
         <Pagination>
           <DivPagination
